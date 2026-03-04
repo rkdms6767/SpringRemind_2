@@ -1,4 +1,26 @@
 package com.sparta.springauth.controller;
 
+import com.sparta.springauth.entity.User;
+import com.sparta.springauth.security.UserDetailsImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//filter확인해보려는 Controller
+@Controller
+@RequestMapping("/api")
 public class ProductController {
+
+    @GetMapping("/products")
+    public String getProducts(@AuthenticationPrincipal UserDetailsImpl userDetails) { //HttpServletRequest req
+//        System.out.println("ProductController.getProducts : 인증 완료");
+//        User user = (User) req.getAttribute("user"); //filter에서 담아주었던 그 user객체.
+//        System.out.println("user.getUsername() = " + user.getUsername());
+
+        User user = userDetails.getUser();
+        System.out.println("user.getUsername() = " + user.getUsername());
+        return "redirect:/";
+    }
 }
